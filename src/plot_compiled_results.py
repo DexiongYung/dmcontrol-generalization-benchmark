@@ -272,7 +272,7 @@ def line_plot(
 
     ax.grid(b=True, which="major", color="lightgray", linestyle="--")
 
-    ax.set_xlabel(rename_map.get(x_name, x_name), fontsize=axes_font_size)
+    ax.set_xlabel(rename_map.get(x_name, x_name.capitalize()), fontsize=axes_font_size)
     ax.set_ylabel(rename_map.get(y_name, y_name), fontsize=axes_font_size)
     if title is not None and title != "":
         ax.set_title(title, fontsize=title_font_size)
@@ -298,7 +298,7 @@ if __name__ == "__main__":
     df = pd.read_csv(args.compiled_csv_path)
     fig = line_plot(
         df,
-        "Step",
+        "step",
         args.y_axis_title,
         "seed",
         "method_name",
