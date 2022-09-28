@@ -1,4 +1,5 @@
 import os
+import string
 import os.path as osp
 import argparse
 
@@ -289,10 +290,15 @@ if __name__ == "__main__":
     parser.add_argument("--line_width", default=1, type=int)
     args = parser.parse_args()
 
+    args.title = args.title.replace("_", " ")
+    args.title = string.capwords(args.title)
+    args.y_axis_tittle = args.y_axis_title.replace("_", " ")
+    args.y_axis_title = string.capwords(args.y_axis_title)
+
     df = pd.read_csv(args.compiled_csv_path)
     fig = line_plot(
         df,
-        "step",
+        "Step",
         args.y_axis_title,
         "seed",
         "method_name",
