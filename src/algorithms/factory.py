@@ -1,3 +1,4 @@
+from algorithms.curriculum_learning.secant import SECANT
 from algorithms.sac import SAC
 from algorithms.rad import RAD
 from algorithms.curl import CURL
@@ -40,6 +41,7 @@ algorithm = {
     "2x_curriculum_bb": Curriculum_BB,
     "curriculum_single": CurriculumSingle,
     "2x_fresh": CurriculumFresh,
+    "secant": SECANT,
 }
 
 
