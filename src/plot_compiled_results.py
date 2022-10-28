@@ -1,4 +1,5 @@
 import os
+import string
 import os.path as osp
 import argparse
 
@@ -271,7 +272,7 @@ def line_plot(
 
     ax.grid(b=True, which="major", color="lightgray", linestyle="--")
 
-    ax.set_xlabel(rename_map.get(x_name, x_name), fontsize=axes_font_size)
+    ax.set_xlabel(rename_map.get(x_name, x_name.capitalize()), fontsize=axes_font_size)
     ax.set_ylabel(rename_map.get(y_name, y_name), fontsize=axes_font_size)
     if title is not None and title != "":
         ax.set_title(title, fontsize=title_font_size)
@@ -288,6 +289,11 @@ if __name__ == "__main__":
     parser.add_argument("--title", default=None, type=str)
     parser.add_argument("--line_width", default=1, type=int)
     args = parser.parse_args()
+
+    args.title = args.title.replace("_", " ")
+    args.title = string.capwords(args.title)
+    args.y_axis_tittle = args.y_axis_title.replace("_", " ")
+    args.y_axis_title = string.capwords(args.y_axis_title)
 
     df = pd.read_csv(args.compiled_csv_path)
     fig = line_plot(
