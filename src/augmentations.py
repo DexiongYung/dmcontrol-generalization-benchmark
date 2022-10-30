@@ -429,6 +429,20 @@ def CS_splice(x, hue_thres=3.5, sat_thres=0, val_thres=0):
     return overlay.reshape(n, c, h, w) * 255.0
 
 
+def emphasize(x, hue_thres=3.5, sat_thres=0, val_thres=0):
+    n, c, h, w = x.shape
+    x_rgb = x.reshape(-1, 3, h, w) / 255.0
+    mask = create_hsv_mask(
+        x_rgb=x_rgb, hue_thres=hue_thres, sat_thres=sat_thres, val_thres=val_thres
+    )
+    mask2 = create_hsv_mask(
+        x_rgb=x_rgb, hue_thres=0, sat_thres=sat_thres, val_thres=0.6
+    )
+    x_rgb[mask2] *= 2
+    x_rgb[~mask] *= 2
+    return x_rgb.reshape(n, c, h, w) * 255.0
+
+
 def CS_splice_2x_jitter(x, hue_thres=3.5, sat_thres=0, val_thres=0):
     """Applies a random conv2d, deviates slightly from https://arxiv.org/abs/1910.05396"""
     n, c, h, w = x.shape
@@ -639,4 +653,5 @@ aug_to_func = {
     "DrQ2_random_shift": DrQ2_random_shift,
     "mix_up": mix_up,
     "overlay_np": random_np_overlay,
+    "emphasize": emphasize
 }
