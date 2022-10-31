@@ -17,7 +17,7 @@ class SECANT(Curriculum):
         mu, _, _, _ = self.actor(obs_aug)
         expert_mu, _, _, _ = self.expert(obs)
 
-        loss = torch.nn.functional.mse_loss(mu, expert_mu)
+        loss = torch.norm(mu - expert_mu)
 
         self.actor_optimizer.zero_grad()
         loss.backward()
