@@ -6,6 +6,7 @@ from algorithms.pad import PAD
 from algorithms.soda import SODA
 from algorithms.drq import DrQ
 from algorithms.svea import SVEA
+from algorithms.svea2 import SVEA2
 from algorithms.transfer import Transfer
 from algorithms.curriculum_learning.curriculum import Curriculum
 from algorithms.curriculum_learning.curriculum_double import Curriculum_Double
@@ -44,6 +45,7 @@ algorithm = {
     "2x_fresh": CurriculumFresh,
     "secant": SECANT,
     "augcl2": AugCL2,
+    "svea2": SVEA2,
 }
 
 
