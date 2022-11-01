@@ -19,6 +19,7 @@ from algorithms.curriculum_learning.curriculum_2x_opt import Curriculum_2x_Opt
 from algorithms.curriculum_learning.curriculum_bb import Curriculum_BB
 from algorithms.curriculum_learning.curriculum_single import CurriculumSingle
 from algorithms.curriculum_learning.curriculum_fresh import CurriculumFresh
+from algorithms.curriculum_learning.augcl2 import AugCL2
 
 algorithm = {
     "sac": SAC,
@@ -42,6 +43,7 @@ algorithm = {
     "curriculum_single": CurriculumSingle,
     "2x_fresh": CurriculumFresh,
     "secant": SECANT,
+    "augcl2": AugCL2,
 }
 
 

@@ -264,6 +264,30 @@
             ]
         },
         {
+            "name": "AugCL2",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/train.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--algorithm",
+                "augcl2",
+                "--train_steps",
+                "20k",
+                "--data_aug",
+                "conv",
+                "--curriculum_step",
+                "10000",
+                "--prev_id",
+                "no_id",
+                "--prev_algorithm",
+                "sac",
+                "--eval_freq",
+                "1k"
+            ]
+        },
+        {
             "name": "Compile CSV",
             "type": "python",
             "request": "launch",
