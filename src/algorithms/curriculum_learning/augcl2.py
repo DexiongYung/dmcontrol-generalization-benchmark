@@ -12,11 +12,7 @@ class AugCL2(Curriculum):
     def __init__(self, obs_shape, action_shape, args):
         super().__init__(obs_shape, action_shape, args)
         self.strong_actor = deepcopy(self.actor)
-        self.strong_actor_optimizer = torch.optim.Adam(
-            self.strong_actor.parameters(),
-            lr=args.actor_lr,
-            betas=(args.actor_beta, 0.999),
-        )
+        self.strong_actor_optimizer = torch.optim.Adam(self.actor.parameters(), lr=1e-3)
 
     def load_pretrained_agent(self, pretrained_agent: SAC):
         utils.soft_update_params(
