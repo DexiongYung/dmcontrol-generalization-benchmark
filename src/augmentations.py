@@ -10,6 +10,7 @@ import os
 
 dataloader = None
 data_iter = None
+dataloader_batch_sz = None
 
 
 def get_jitter_model(x):
@@ -77,6 +78,9 @@ def _get_data_batch(batch_size):
     global data_iter
     try:
         imgs, _ = next(data_iter)
+
+        if batch_size < imgs.size(0):
+            imgs = imgs[:batch_size]
         if imgs.size(0) < batch_size:
             data_iter = iter(dataloader)
             imgs, _ = next(data_iter)
@@ -257,16 +261,22 @@ def random_resize_crop(imgs, p=1):
 
 
 def load_dataloader(batch_size, image_size, dataset="coco"):
-    if dataset == "places365_standard":
-        if dataloader is None:
+    global dataloader
+    global dataloader_batch_sz
+
+    if dataloader_batch_sz is not None and batch_size > dataloader_batch_sz:
+        dataloader = None
+
+    if dataloader is None:
+        dataloader_batch_sz = batch_size
+        if dataset == "places365_standard":
             _load_places(batch_size=batch_size, image_size=image_size)
-    elif dataset == "coco":
-        if dataloader is None:
+        elif dataset == "coco":
             _load_coco(batch_size=batch_size, image_size=image_size)
-    else:
-        raise NotImplementedError(
-            f'overlay has not been implemented for dataset "{dataset}"'
-        )
+        else:
+            raise NotImplementedError(
+                f'overlay has not been implemented for dataset "{dataset}"'
+            )
 
 
 def random_overlay(x, dataset="coco"):
@@ -443,8 +453,8 @@ def splice_conv(x, hue_thres=3.5, sat_thres=0, val_thres=0):
     )
     conv = random_conv(x=x)
     conv = conv.reshape(-1, 3, h, w) / 255.0
-    overlay[mask2] = conv[mask2] 
-    overlay[~mask] = conv[~mask] 
+    overlay[mask2] = conv[mask2]
+    overlay[~mask] = conv[~mask]
     return overlay.reshape(n, c, h, w) * 255.0
 
 
