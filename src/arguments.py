@@ -180,10 +180,8 @@ def parse_eval_args():
     parser.add_argument("--num_episodes", default=30, type=int)
 
     args = parser.parse_args()
-    env_mode = args.env_mode
-    distracting_cs_intensity = args.distracting_cs_intensity
-    assert_distracting_cs_intensity_valid(intensity=distracting_cs_intensity)
-    assert_env_mode_valid(eval_mode=env_mode)
+    assert_distracting_cs_intensity_valid(intensity=args.distracting_cs_intensity)
+    assert_env_mode_valid(eval_mode=args.env_mode)
     assert os.path.exists(
         os.path.join(args.dir_path, "args.json")
     ), f"{os.path.join(args.dir_path, 'args.json')} isn't a valid args.json path"
