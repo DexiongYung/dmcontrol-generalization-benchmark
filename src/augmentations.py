@@ -180,41 +180,23 @@ def random_rotation(images, p=0.95):
     p: float, prob of applying aug,
     returns torch.tensor
     """
-    device = images.device
-    # images: [B, C, H, W]
-    bs, channels, h, w = images.shape
-
-    images = images.to(device)
-
-    rot90_images = images.rot90(1, [2, 3])
-    rot180_images = images.rot90(2, [2, 3])
-    rot270_images = images.rot90(3, [2, 3])
-
-    rnd = np.random.uniform(0.0, 1.0, size=(images.shape[0],))
-    rnd_rot = np.random.randint(1, 4, size=(images.shape[0],))
-    mask = rnd <= p
-    mask = rnd_rot * mask
-    mask = torch.from_numpy(mask).to(device)
-
-    frames = images.shape[1]
-    masks = [torch.zeros_like(mask) for _ in range(4)]
-    for i, m in enumerate(masks):
-        m[torch.where(mask == i)] = 1
-        m = m[:, None] * torch.ones([1, frames]).type(mask.dtype).type(images.dtype).to(
-            device
-        )
-        m = m[:, :, None, None]
-        masks[i] = m
-
-    out = (
-        masks[0] * images
-        + masks[1] * rot90_images
-        + masks[2] * rot180_images
-        + masks[3] * rot270_images
+    return center_crop_images(
+        kornia.augmentation.RandomRotation(p=p, degrees=360, keepdim=True)(
+            F.pad(images, pad=[100] * 4, mode="replicate")
+        ),
+        images.shape[-1],
     )
 
-    out = out.view([bs, -1, h, w])
-    return out
+
+def center_crop_images(image, output_size):
+    h, w = image.shape[2:]
+    new_h, new_w = output_size, output_size
+
+    top = (h - new_h) // 2
+    left = (w - new_w) // 2
+
+    image = image[:, :, top : top + new_h, left : left + new_w]
+    return image
 
 
 def pad_to_shape(arr, out_shape):
@@ -245,11 +227,12 @@ def random_perspective(imgs, p=1):
     """
     inputs np array outputs tensor
     """
-    b, c, h, w = imgs.shape
-    imgs = imgs.view(-1, 3, h, w) / 255.0
-    model = kornia.augmentation.RandomPerspective(p=p)
-    imgs = model(imgs)
-    return imgs.view(b, c, h, w) * 255.0
+    return center_crop_images(
+        kornia.augmentation.RandomPerspective(p=p)(
+            F.pad(imgs, pad=[150] * 4, mode="replicate")
+        ),
+        imgs.shape[-1],
+    )
 
 
 def random_resize_crop(imgs, p=1):
