@@ -172,7 +172,7 @@ def random_flip(images, p=0.2):
     return out
 
 
-def random_rotation(images, p=0.3):
+def random_rotation(images, p=0.95):
     """
     args:
     imgs: torch.tensor shape (B,C,H,W)

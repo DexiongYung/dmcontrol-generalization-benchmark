@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from torchvision.utils import make_grid
 from torchvision.utils import save_image
 
+
 def parse_args():
     parser = argparse.ArgumentParser()
 
@@ -66,11 +67,15 @@ def main(args):
         img_tnsr = transforms.ToTensor()(img)
         tnsr_list.append(img_tnsr)
 
-    imgs_tnsr = torch.unsqueeze(torch.cat(tnsr_list, dim=0), dim=0) * 255
-    augs_tnsr = augmentations.aug_to_func[args.data_aug](imgs_tnsr.to("cuda")) / 255.0
+    aug_list = args.data_aug.split(",")
+    augs_tnsr = torch.unsqueeze(torch.cat(tnsr_list, dim=0), dim=0) * 255
+    augs_tnsr = augs_tnsr.to("cuda")
+    for aug in aug_list:
+        augs_tnsr = augmentations.aug_to_func[aug](augs_tnsr)
+    augs_tnsr /= 255.0
     show_stacked_imgs(augs_tnsr.cpu().numpy())
     plt.savefig(args.save_file_name)
-    save_image(augs_tnsr[0,:3], "test_img.png")
+    save_image(augs_tnsr[0, :3], "test_img.png")
 
 
 if __name__ == "__main__":
