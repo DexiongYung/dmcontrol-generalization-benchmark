@@ -1,4 +1,10 @@
+from algorithms.alix import ALIX
 from algorithms.curriculum_learning.secant import SECANT
+from algorithms.non_naive_rad2 import NonNaiveRAD2
+from algorithms.rad2 import RAD2
+from algorithms.rad3 import RAD3
+from algorithms.rad_alix import RAD_ALIX
+from algorithms.rad_shift import RAD_shift
 from algorithms.sac import SAC
 from algorithms.rad import RAD
 from algorithms.curl import CURL
@@ -46,6 +52,12 @@ algorithm = {
     "secant": SECANT,
     "augcl2": AugCL2,
     "svea2": SVEA2,
+    "rad2": RAD2,
+    "rad3": RAD3,
+    "non_naive_rad2": NonNaiveRAD2,
+    "alix": ALIX,
+    "rad_alix": RAD_ALIX,
+    "rad_shift": RAD_shift,
 }
 
 

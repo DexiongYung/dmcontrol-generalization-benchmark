@@ -36,6 +36,20 @@
             ]
         },
         {
+            "name": "ALIX train",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/train.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--id",
+                "test",
+                "--algorithm",
+                "alix",
+            ]
+        },
+        {
             "name": "SODA train",
             "type": "python",
             "request": "launch",

@@ -191,7 +191,8 @@ class Encoder(nn.Module):
 
     def forward(self, x, detach=False):
         x = self.shared_cnn(x)
-        x = self.head_cnn(x)
+        if self.head_cnn is not None:
+            x = self.head_cnn(x)
         if detach:
             x = x.detach()
         return self.projection(x)
