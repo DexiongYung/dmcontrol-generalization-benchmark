@@ -1,9 +1,8 @@
-import torch
-from algorithms.rad3 import RAD3
+from algorithms.rad2 import RAD2
 import augmentations
 
 
-class RAD_shift(RAD3):
+class RAD_shift(RAD2):
     def __init__(self, obs_shape, action_shape, args):
         super().__init__(obs_shape, action_shape, args)
 
