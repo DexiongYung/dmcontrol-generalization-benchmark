@@ -30,13 +30,19 @@ class DrQ(SAC):
                 target_Q_list.append(target_Q.cpu().numpy())
 
         target_Q /= self.m
-        critic_loss = 0
+        Q1_sum = 0
+        Q2_sum = 0
 
         for obs in obs_list:
             curr_Q1, curr_Q2 = self.critic(obs, action)
-            critic_loss += F.mse_loss(curr_Q1, target_Q) + F.mse_loss(curr_Q2, target_Q)
+            Q1_sum += curr_Q1
+            Q2_sum += curr_Q2
             Q1_list.append(curr_Q1.detach().cpu().numpy())
             Q2_list.append(curr_Q2.detach().cpu().numpy())
+
+        critic_loss = F.mse_loss(Q1_sum / self.k, target_Q) + F.mse_loss(
+            Q2_sum / self.k, target_Q
+        )
 
         if L is not None:
             Q1_var = (

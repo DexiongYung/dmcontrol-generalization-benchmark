@@ -1,5 +1,6 @@
 from algorithms.alix import ALIX
 from algorithms.curriculum_learning.secant import SECANT
+from algorithms.data_mix import Data_Mix
 from algorithms.non_naive_drq import Non_Naive_DrQ
 from algorithms.non_naive_rad2 import NonNaiveRAD2
 from algorithms.rad2 import RAD2
@@ -58,6 +59,7 @@ algorithm = {
     "rad_alix": RAD_ALIX,
     "rad_shift": RAD_shift,
     "non_naive_drq": Non_Naive_DrQ,
+    "data_mix": Data_Mix,
 }
 
 

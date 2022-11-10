@@ -1,3 +1,4 @@
+import torch
 from utils import ReplayBuffer
 from augmentations import random_shift
 import torch.nn.functional as F
@@ -11,9 +12,11 @@ class AugCL3(Curriculum_Double):
     def update_critic(
         self, obs_aug, obs_shift, action, reward, next_obs, not_done, L=None, step=None
     ):
-        target_Q = self.calculate_target_Q(
-            next_obs=next_obs, reward=reward, not_done=not_done
-        )
+        with torch.no_grad():
+            _, policy_action, log_pi, _ = self.actor(next_obs)
+            target_Q1, target_Q2 = self.critic_weak(next_obs, policy_action)
+            target_V = torch.min(target_Q1, target_Q2) - self.alpha.detach() * log_pi
+            target_Q = reward + (not_done * self.discount * target_V)
 
         current_Q1_shift, current_Q2_shift = self.critic_weak(obs_shift, action)
         critic_loss_shift = F.mse_loss(current_Q1_shift, target_Q) + F.mse_loss(
@@ -55,6 +58,3 @@ class AugCL3(Curriculum_Double):
 
         if step % self.actor_update_freq == 0:
             self.update_actor_and_alpha(obs_aug, L, step)
-
-        if step % self.critic_target_update_freq == 0:
-            self.soft_update_critic_target()
