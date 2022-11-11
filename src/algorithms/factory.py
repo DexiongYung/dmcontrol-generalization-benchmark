@@ -60,7 +60,6 @@ algorithm = {
     "rad_alix": RAD_ALIX,
     "rad_shift": RAD_shift,
     "non_naive_drq": Non_Naive_DrQ,
-    "data_mix": Data_Mix,
     "augcl4": AugCL4,
 }
 
