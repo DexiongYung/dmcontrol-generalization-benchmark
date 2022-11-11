@@ -1,3 +1,4 @@
+import torch
 from algorithms.rad import RAD
 
 
@@ -16,3 +17,9 @@ class NonNaiveRAD2(RAD):
 
         if step % self.critic_target_update_freq == 0:
             self.soft_update_critic_target()
+
+    def sample_action(self, obs):
+        _obs = self._obs_to_input(obs)
+        with torch.no_grad():
+            mu, pi, _, _ = self.actor(self.apply_aug(_obs), compute_log_pi=False)
+        return pi.cpu().data.numpy().flatten()
