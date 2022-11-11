@@ -1,4 +1,5 @@
 from algorithms.alix import ALIX
+from algorithms.curriculum_learning.augcl4 import AugCL4
 from algorithms.curriculum_learning.secant import SECANT
 from algorithms.data_mix import Data_Mix
 from algorithms.non_naive_drq import Non_Naive_DrQ
@@ -60,6 +61,7 @@ algorithm = {
     "rad_shift": RAD_shift,
     "non_naive_drq": Non_Naive_DrQ,
     "data_mix": Data_Mix,
+    "augcl4": AugCL4,
 }
 
 
