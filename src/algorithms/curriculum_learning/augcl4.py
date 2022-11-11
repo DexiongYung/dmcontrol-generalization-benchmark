@@ -10,6 +10,7 @@ class AugCL4(Curriculum_Double):
     def __init__(self, obs_shape, action_shape, args):
         super().__init__(obs_shape, action_shape, args)
         self.m = 1
+        self.k = args.drq_k
 
     def update_critic(
         self, obs_list, action, reward, next_obs_list, not_done, L=None, step=None
