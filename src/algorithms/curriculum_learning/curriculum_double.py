@@ -69,7 +69,7 @@ class Curriculum_Double(Curriculum):
     def update(self, replay_buffer: ReplayBuffer, L, step):
         obs, action, reward, next_obs, not_done = replay_buffer.sample()
         obs_shift = random_shift(obs)
-        obs_aug = self.apply_aug(obs)
+        obs_aug = self.apply_aug(obs_shift)
 
         self.update_critic(
             obs_shift=obs_shift,

@@ -41,9 +41,7 @@ class SVEA(RAD):
         #         + F.mse_loss(current_Q2_aug, target_Q)
         #     )
 
-        current_Q1, current_Q2 = self.critic(
-            augmentations.random_shift(obs.clone()), action
-        )
+        current_Q1, current_Q2 = self.critic(obs, action)
         critic_loss_shift = self.svea_alpha * (
             F.mse_loss(current_Q1, target_Q) + F.mse_loss(current_Q2, target_Q)
         )
@@ -67,6 +65,7 @@ class SVEA(RAD):
 
     def update(self, replay_buffer: utils.ReplayBuffer, L: Logger, step: int):
         obs, action, reward, next_obs, not_done = replay_buffer.sample()
+        obs = augmentations.random_shift(obs)
 
         self.update_critic(obs, action, reward, next_obs, not_done, L, step)
 
