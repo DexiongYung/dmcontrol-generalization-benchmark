@@ -40,7 +40,7 @@ algorithm = {
     "transfer": Transfer,
     "curriculum": Curriculum,
     "non_naive_rad": NonNaiveRAD,
-    "2x_curriculum": Curriculum_Double,
+    "augcl": Curriculum_Double,
     "sac_policy_eval": SAC_policy_eval,
     "sarsa_policy_eval": SARSA_policy_eval,
     "curriculum_FTL": Curriculum_FTL,
