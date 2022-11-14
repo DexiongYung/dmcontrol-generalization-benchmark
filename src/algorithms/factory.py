@@ -2,7 +2,6 @@ from algorithms.alix import ALIX
 from algorithms.non_naive_rad2 import NonNaiveRAD2
 from algorithms.rad2 import RAD2
 from algorithms.rad_alix import RAD_ALIX
-from algorithms.rad_shift import RAD_shift
 from algorithms.sac import SAC
 from algorithms.rad import RAD
 from algorithms.curl import CURL
@@ -35,7 +34,6 @@ algorithm = {
     "non_naive_rad2": NonNaiveRAD2,
     "alix": ALIX,
     "rad_alix": RAD_ALIX,
-    "rad_shift": RAD_shift,
 }
 
 
