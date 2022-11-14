@@ -7,7 +7,7 @@ from algorithms.curriculum_learning.curriculum import Curriculum
 import utils
 
 
-class Curriculum_Double(Curriculum):
+class AugCL(Curriculum):
     def __init__(self, obs_shape, action_shape, args):
         super().__init__(obs_shape, action_shape, args)
         self.critic_weak = deepcopy(self.critic)
