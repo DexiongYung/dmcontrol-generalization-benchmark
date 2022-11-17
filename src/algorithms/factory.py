@@ -1,4 +1,5 @@
 from algorithms.alix import ALIX
+from algorithms.drq3 import DrQ3
 from algorithms.non_naive_rad2 import NonNaiveRAD2
 from algorithms.rad2 import RAD2
 from algorithms.rad_alix import RAD_ALIX
@@ -9,6 +10,7 @@ from algorithms.pad import PAD
 from algorithms.soda import SODA
 from algorithms.drq import DrQ
 from algorithms.svea import SVEA
+from algorithms.svea2 import SVEA2
 from algorithms.transfer import Transfer
 from algorithms.curriculum_learning.AugCL import AugCL
 from algorithms.non_naive_rad import NonNaiveRAD
@@ -34,6 +36,8 @@ algorithm = {
     "non_naive_rad2": NonNaiveRAD2,
     "alix": ALIX,
     "rad_alix": RAD_ALIX,
+    "svea2": SVEA2,
+    "drq3": DrQ3,
 }
 
 

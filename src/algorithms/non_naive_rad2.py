@@ -32,7 +32,7 @@ class NonNaiveRAD2(RAD):
         self.update_critic(aug_obs, action, reward, next_obs, not_done, L, step)
 
         if step % self.actor_update_freq == 0:
-            self.update_actor_and_alpha(obs, L, step)
+            self.update_actor_and_alpha(aug_obs, L, step)
 
         if step % self.critic_target_update_freq == 0:
             self.soft_update_critic_target()
