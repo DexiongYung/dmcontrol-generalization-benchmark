@@ -1,4 +1,5 @@
 from algorithms.alix import ALIX
+from algorithms.curriculum_anneal import Curriculum_Anneal
 from algorithms.drq3 import DrQ3
 from algorithms.drq4 import DrQ4
 from algorithms.drq5 import DrQ5
@@ -44,6 +45,7 @@ algorithm = {
     "drq4": DrQ4,
     "drq5": DrQ5,
     "drq6": DrQ6,
+    "anneal": Curriculum_Anneal,
 }
 
 

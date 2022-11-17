@@ -302,6 +302,24 @@
             ]
         },
         {
+            "name": "Anneal",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/train.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--algorithm",
+                "anneal",
+                "--train_steps",
+                "20k",
+                "--data_aug",
+                "conv",
+                "--switch_step",
+                "10000",
+            ]
+        },
+        {
             "name": "Compile CSV",
             "type": "python",
             "request": "launch",
