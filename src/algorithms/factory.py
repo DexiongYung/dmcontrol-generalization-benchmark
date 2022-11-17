@@ -1,6 +1,8 @@
 from algorithms.alix import ALIX
 from algorithms.drq3 import DrQ3
 from algorithms.drq4 import DrQ4
+from algorithms.drq5 import DrQ5
+from algorithms.drq6 import DrQ6
 from algorithms.non_naive_rad2 import NonNaiveRAD2
 from algorithms.rad2 import RAD2
 from algorithms.rad_alix import RAD_ALIX
@@ -40,6 +42,8 @@ algorithm = {
     "svea2": SVEA2,
     "drq3": DrQ3,
     "drq4": DrQ4,
+    "drq5": DrQ5,
+    "drq6": DrQ6,
 }
 
 
