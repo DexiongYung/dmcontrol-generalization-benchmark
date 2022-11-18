@@ -29,7 +29,13 @@ def main(args):
 
         data.append([dir_path, np.mean(values_list), np.std(values_list)])
 
-    pd.DataFrame(data, columns=["path", "mu", "std"]).to_csv(args.output_file_name)
+    df = pd.DataFrame(data, columns=["path", "mu", "std"])
+
+    if os.path.exists(args.output_file_name):
+        df2 = pd.read_csv(args.output_file_name)
+        df.append(df2)
+
+    df.to_csv(args.output_file_name)
 
 
 if __name__ == "__main__":
