@@ -12,7 +12,7 @@ def main(args):
         for seed in range(args.max_seed + 1):
             csv_fp = os.path.join(dir_path, f"seed_{seed}", args.csv_file_name)
 
-            if not os.path.exists(csv_fp):
+            if args.skip_not_found and not os.path.exists(csv_fp):
                 print(f"Path: {csv_fp}, not found")
                 continue
 
@@ -41,5 +41,6 @@ if __name__ == "__main__":
     parser.add_argument("--column_name", type=str, default="step")
     parser.add_argument("--column_value", default=500000)
     parser.add_argument("--row_value", required=True)
+    parser.add_argument("--skip_not_found", default=False)
     args = parser.parse_args()
     main(args)
