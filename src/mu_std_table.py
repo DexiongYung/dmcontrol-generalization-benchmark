@@ -11,6 +11,11 @@ def main(args):
         values_list = []
         for seed in range(args.max_seed + 1):
             csv_fp = os.path.join(dir_path, f"seed_{seed}", args.csv_file_name)
+
+            if not os.path.exists(csv_fp):
+                print(f"Path: {csv_fp}, not found")
+                continue
+
             df = pd.read_csv(csv_fp)
 
             if np.int64 == df[args.column_name].dtype:
