@@ -33,7 +33,7 @@ def main(args):
 
     if os.path.exists(args.output_file_name):
         df2 = pd.read_csv(args.output_file_name)
-        df.append(df2)
+        df = df.append(df2)
 
     df.to_csv(args.output_file_name)
 
