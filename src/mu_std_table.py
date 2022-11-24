@@ -35,7 +35,7 @@ def main(args):
         df2 = pd.read_csv(args.output_file_name)
         df = df.append(df2)
 
-    df.to_csv(args.output_file_name)
+    df.to_csv(args.output_file_name, index=False)
 
 
 if __name__ == "__main__":
