@@ -27,9 +27,9 @@ def main(args):
                 df.loc[df[args.column_name] == column_value][args.row_value].iloc[0]
             )
 
-        data.append([dir_path, np.mean(values_list), np.std(values_list)])
+        data.append([dir_path, np.mean(values_list), np.std(values_list), args.column_value])
 
-    df = pd.DataFrame(data, columns=["path", "mu", "std"])
+    df = pd.DataFrame(data, columns=["path", "mu", "std", "eval_mode"])
 
     if os.path.exists(args.output_file_name):
         df2 = pd.read_csv(args.output_file_name)
