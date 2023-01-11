@@ -16,6 +16,7 @@ def parse_args():
 
     # environment
     parser.add_argument("--data_aug", default="splice_2x_jitter", type=str)
+    parser.add_argument("--aug_dist", default=None, type=str)
     parser.add_argument("--save_file_name", default="aug_test.png", type=str)
     parser.add_argument(
         "--sample_png_folder",
@@ -67,11 +68,12 @@ def main(args):
         img_tnsr = transforms.ToTensor()(img)
         tnsr_list.append(img_tnsr)
 
-    aug_list = args.data_aug.split(",")
     augs_tnsr = torch.unsqueeze(torch.cat(tnsr_list, dim=0), dim=0) * 255
     augs_tnsr = augs_tnsr.to("cuda")
-    for aug in aug_list:
-        augs_tnsr = augmentations.aug_to_func[aug](augs_tnsr)
+    augmenter = augmentations.Augmenter(
+        augs_list=args.data_aug.split(","), distribution=args.aug_dist.split(",")
+    )
+    augs_tnsr = augmenter.apply_augs(augs_tnsr)
     augs_tnsr /= 255.0
     show_stacked_imgs(augs_tnsr.cpu().numpy())
     plt.savefig(args.save_file_name)

@@ -68,6 +68,7 @@ def add_SAC_args():
 
     # Data Augmentation
     parser.add_argument("--data_aug", default="identity", type=str)
+    parser.add_argument("--aug_dist", default=None, type=str)
     parser.add_argument(
         "--aug_params",
         default=None,

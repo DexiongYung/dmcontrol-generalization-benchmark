@@ -204,6 +204,20 @@
             ]
         },
         {
+            "name": "Test Augmentation w distribution",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/test_augmentation.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--data_aug",
+                "mix_up,conv",
+                "--aug_dist",
+                "0.5,0.5"
+            ]
+        },
+        {
             "name": "Sample Frames",
             "type": "python",
             "request": "launch",
@@ -302,7 +316,7 @@
             ]
         },
         {
-            "name": "Anneal",
+            "name": "SVEA distributed augs",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/src/train.py",
@@ -310,13 +324,11 @@
             "justMyCode": true,
             "args": [
                 "--algorithm",
-                "anneal",
-                "--train_steps",
-                "20k",
+                "svea",
                 "--data_aug",
-                "conv",
-                "--switch_step",
-                "10000",
+                "conv-splice",
+                "--aug_dist",
+                "0.5-0.5",
             ]
         },
         {

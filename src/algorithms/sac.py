@@ -57,23 +57,15 @@ class SAC(object):
             [self.log_alpha], lr=args.alpha_lr, betas=(args.alpha_beta, 0.999)
         )
 
-        aug_keys = args.data_aug.split("-")
-        aug_params = json.loads(args.aug_params) if args.aug_params else {}
-        self.aug_funcs = dict()
+        self.augmenter = augmentations.Augmenter(
+            augs_list=args.data_aug.split("-"), distribution=args.aug_dist.split("-")
+        )
 
-        for key in aug_keys:
-            self.aug_funcs[key] = dict(
-                func=augmentations.aug_to_func[key], params=aug_params.get(key, {})
-            )
-            
         self.train()
         self.critic_target.train()
 
     def apply_aug(self, x):
-        for _, aug_dict in self.aug_funcs.items():
-            x = aug_dict["func"](x, **aug_dict["params"])
-
-        return x
+        return self.augmenter.apply_augs(obs=x)
 
     def train(self, training=True):
         self.training = training

@@ -668,3 +668,39 @@ aug_to_func = {
     "emphasize": emphasize,
     "splice_conv": splice_conv,
 }
+
+
+class Augmenter(object):
+    def __init__(self, augs_list: list, distribution: list):
+        self.augs_list = augs_list
+        self.num_augs = len(augs_list)
+        self.distribution = distribution
+
+        for aug_key in augs_list:
+            assert (
+                aug_key in aug_to_func.keys()
+            ), f'"{aug_key}" not in {aug_to_func.keys()}'
+
+        if distribution is not None:
+            self.distribution = [float(val) for val in distribution]
+            if self.num_augs != len(distribution):
+                raise ValueError(
+                    f"{self.num_augs} count in 'augs_list', but 'distribution' is of length {len(distribution)}"
+                )
+
+    def apply_augs(self, obs):
+        start = 0
+        for i in range(self.num_augs):
+            if self.distribution:
+                curr_percent = self.distribution[i]
+                end = (
+                    start + int(curr_percent * obs.shape[0])
+                    if i < self.num_augs - 1
+                    else None
+                )
+                obs[start:end] = aug_to_func[self.augs_list[i]](obs[start:end])
+                start += int(curr_percent * obs.shape[0])
+            else:
+                obs = aug_to_func[self.augs_list[i]](obs)
+
+        return obs
