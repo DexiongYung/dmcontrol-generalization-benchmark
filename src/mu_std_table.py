@@ -17,17 +17,23 @@ def main(args):
                 continue
 
             df = pd.read_csv(csv_fp)
-
-            if np.int64 == df[args.column_name].dtype:
+            col_dtype = df[args.column_name].dtype
+            if np.int64 == col_dtype:
                 column_value = int(args.column_value)
-            else:
+            elif np.float == col_dtype:
+                column_value = float(args.column_value)
+            elif np.str == col_dtype:
                 column_value = str(args.column_value)
+            else:
+                raise ValueError(f"{col_dtype} not supported")
 
             values_list.append(
                 df.loc[df[args.column_name] == column_value][args.row_value].iloc[0]
             )
 
-        data.append([dir_path, np.mean(values_list), np.std(values_list), args.column_value])
+        data.append(
+            [dir_path, np.mean(values_list), np.std(values_list), args.column_value]
+        )
 
     df = pd.DataFrame(data, columns=["path", "mu", "std", "eval_mode"])
 
@@ -41,8 +47,8 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--dir_path", required=True, type=str)
-    parser.add_argument("--max_seed", default=1, type=int)
-    parser.add_argument("--csv_file_name", default="eval.csv", type=str)
+    parser.add_argument("--max_seed", default=0, type=int)
+    parser.add_argument("--csv_file_name", default="evaluate.csv", type=str)
     parser.add_argument("--output_file_name", type=str, required=True)
     parser.add_argument("--column_name", type=str, default="step")
     parser.add_argument("--column_value", default=500000)
