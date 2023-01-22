@@ -340,8 +340,13 @@
             "justMyCode": true,
             "args": [
                 "--alg_dirs",
-                "./logs/cartpole_swingup/drq/no_id",
-                "./logs/cartpole_swingup/drq_copy/no_id"
+                "./logs/walker_walk/sac/no_id",
+                "--method_names",
+                "blah",
+                "--max_seed",
+                "0",
+                "--metric",
+                "critic_shift_loss"
             ]
         },
         {
