@@ -12,6 +12,7 @@ def main(args):
             curr_df = pd.read_csv(csv_path)
             curr_df = curr_df.drop_duplicates(subset=["step"])
             curr_df = curr_df[curr_df["step"] > args.start]
+            curr_df = curr_df[curr_df["step"] < args.end]
             curr_df = curr_df.loc[curr_df["step"] % args.step_interval == 0]
             subset_df = curr_df[["step", args.metric]]
             subset_df.rename(columns={args.metric: "perf"})
@@ -35,6 +36,7 @@ if __name__ == "__main__":
     parser.add_argument("--method_names", type=str, required=True)
     parser.add_argument("--max_seed", default=1, type=int)
     parser.add_argument("--start", default=1000, type=int)
+    parser.add_argument("--end", default=400000, type=int)
     parser.add_argument("--metric", default="episode_reward", type=str)
     parser.add_argument("--csv_file_name", default="train.csv", type=str)
     parser.add_argument("--step_interval", default=1000, type=int)
