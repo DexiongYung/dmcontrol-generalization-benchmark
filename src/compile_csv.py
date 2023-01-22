@@ -14,8 +14,8 @@ def main(args):
             curr_df = curr_df.loc[curr_df["step"] % args.step_interval == 0]
             subset_df = curr_df[["step", args.metric]]
             subset_df.rename(columns={args.metric: "perf"})
-            subset_df["seed"] = seed
-            subset_df["method_name"] = method_name
+            subset_df = subset_df.assign(seed=seed)
+            subset_df = subset_df.assign(method_name=method_name)
 
             if compiled_df is None:
                 compiled_df = subset_df
